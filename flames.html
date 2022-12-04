@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>FLAMES</title>
+        <style>
+            *{
+                background-image: url("./darkblue.jfif");
+                color: white;
+            }
+            #content{
+                height: 320px;
+                width: 350px;
+                position: absolute;
+                left: 200px;
+                border: 2px solid white;
+            }
+            #center{
+                text-align: center;
+                font-size: 50px;
+                color: white;
+            }
+            #name1{
+                position: relative;
+                left: 50px;
+                top: 50px;
+                padding: 12px 12px;
+                font-size: 20px;
+            }
+            #name2{
+                position: relative;
+                left: 50px;
+                top: 100px;
+                padding:12px 12px;
+                font-size: 20px;
+            }
+            #button{
+                position: relative;
+                left: 150px;
+                top: 110px;
+                border: none;
+            }
+            #output{
+                position: relative;
+                left: 500px;
+            }
+            img{
+              border-radius: 50%;
+            }
+        </style>
+    </head>
+    <body>
+        <h3 id="center">FLAMES</h3>
+        <div id="content">
+        <input type='text' id='name1' placeholder="Enter Name Here..." ><br><br>
+        <input type='text' id='name2' placeholder="Enter Name Here..." ><br><br>
+        <button type="button" onclick="flames()" id="button">
+        <img src="./moon.webp" height="50" width="50px" alt="moon"></button>
+        <h3 id='output'></h3>
+        </div>
+        <script>
+            function replaceAt(string, index, replace) {
+              return string.substring(0, index) + replace + string.substring(index + 1);
+            }
+            function flames(){
+              var res=document.getElementById("output");
+              var a=document.getElementById("name1").value.toLowerCase();
+              var b=document.getElementById("name2").value.toLowerCase();
+              if(a!=""&&b!=""){
+                for (i=0;i<a.length;i++){
+                  for(j=0;j<b.length;j++){
+                    if(a[i]==b[j]){
+                      a=replaceAt(a,i,'*');
+                      b=replaceAt(b,j,'*');
+                    }
+                  }
+                }
+                var countLetters=0;
+        for (i=0;i<a.length;i++){
+          if(a[i]!='*'){
+            countLetters++;
+          }
+        }
+        for (i=0;i<b.length;i++){
+          if(b[i]!='*'){
+            countLetters++;
+          }
+        }
+        if(countLetters>1){
+          var flames="FLAMES";
+          c=0;
+          l=1;
+          for(i=0;flames.length!=1;i++){
+            if(l==countLetters)
+            {
+              if(c>=flames.length)
+              {
+                c=0;
+              }
+              flames=replaceAt(flames,c,'');
+              l=1;
+            }  
+             if(c>=flames.length)
+            {
+              c=0;
+            }        
+            l++;
+            c++;
+          }
+          switch(flames){
+            case 'F':
+              flames="Friend";
+              break;
+            case 'L':
+              flames="Love";
+              break;
+            case 'A':
+              flames="Affection";
+              break;
+            case 'M':
+              flames="Marriage";
+              break;
+            case 'E':
+              flames="Enemies";
+              break;
+            case 'S':
+              flames="Sibling";
+              break;
+          }
+        }
+        if(countLetters==1){
+          flames="Sibling";
+        }
+        if(countLetters==0){
+          flames="Its Same Name";
+        }
+        res.innerHTML="<b style='color:green;'>"+document.getElementById("name2").value+"</b> is Your <b style='color:blue;'>"+flames+"</b>";
+      }else{
+        res.innerHTML="Please Enter Name";
+      }
+    }
+  </script>
+    </body>
+</html>
